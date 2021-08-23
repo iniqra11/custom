@@ -1,0 +1,20 @@
+# -----------------------------------------------------------------------
+# Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Products
+
+# Macros / Replacement Parameter definitions
+$productCatalog=apparelProductCatalog
+$productCatalogName=Apparel Product Catalog
+
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=supercategories(code, $catalogVersion)
+$baseProduct=baseProduct(code,$catalogVersion)
+$approved=approvalstatus(code)[default='approved']
+
+# Insert Products in ApparelProduct for Exit Test
+INSERT_UPDATE ApparelProduct;code[unique=true];$catalogVersion;unit(code);$approved;ean;genders(code)
+;1200;;pieces;;989514145;MALE,FEMALE;
+;1201;;pieces;;789514145;MALE,FEMALE;
+;1202;;pieces;;689514145;MALE,FEMALE;
+;1203;;pieces;;289514145;MALE,FEMALE;

@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+		
+	<context:annotation-config/> 
+
+	<alias alias="simpleSuggestionFacade" name="defaultSimpleSuggestionFacade"/>
+	<bean id="defaultSimpleSuggestionFacade" class="de.hybris.NagAcc.facades.suggestion.impl.DefaultSimpleSuggestionFacade" >
+		<property name="simpleSuggestionService" ref="simpleSuggestionService"/>
+		<property name="userService" ref="userService"/>
+		<property name="categoryService" ref="categoryService"/>
+		<property name="productService" ref="productService"/>
+		<property name="productConverter" ref="carouselProductConverter"/>
+		<property name="cartService" ref="cartService"/>
+	</bean>
+	
+	<bean id="carouselProductConverter" parent="defaultProductConverter">
+		<property name="populators">
+			<list merge="true">
+				<ref bean="productPricePopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="acceleratorVariantOptionDataConverter" alias="variantOptionDataConverter"/> 
+	<bean id="acceleratorVariantOptionDataConverter" parent="abstractPopulatingConverter">
+		<lookup-method name="createTarget" bean="variantOptionData"/>
+		<property name="populators">
+			<list>
+				<ref bean="acceleratorVariantOptionDataPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultAcceleratorVariantOptionDataPopulator" alias="acceleratorVariantOptionDataPopulator"/>
+	<bean id="defaultAcceleratorVariantOptionDataPopulator"  class="de.hybris.NagAcc.facades.populators.AcceleratorVariantOptionDataPopulator"
+	      parent="variantOptionDataPopulator" >
+		<property name="mediaService" ref="mediaService"/>
+		<property name="mediaContainerService" ref="mediaContainerService"/>
+		<property name="typeService" ref="typeService"/>
+		<property name="imageFormatMapping" ref="imageFormatMapping"/>
+		<property name="variantAttributeMapping">
+			<map>
+				<entry key="ApparelStyleVariantProduct.style" value="styleSwatch"/>
+			</map>
+		</property>
+	</bean>
+
+
+	<alias name="acceleratorGenderConverter" alias="genderConverter"/> 
+	<bean id="acceleratorGenderConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.NagAcc.facades.product.data.GenderData"/>
+			<property name="populators">
+				<list>
+					<ref bean="genderDataPopulator"/>
+				</list>
+			</property>
+	</bean>
+
+	<alias name="defaultGenderDataPopulator" alias="genderDataPopulator"/>
+	<bean id="defaultGenderDataPopulator" class="de.hybris.NagAcc.facades.populators.GenderDataPopulator" >
+		<property name="typeService" ref="typeService"/>
+	</bean>
+
+	<bean id="apparelProductPopulator" class="de.hybris.NagAcc.facades.populators.ApparelProductPopulator" >
+		<property name="genderConverter" ref="genderConverter"/>
+	</bean>
+
+	<!-- Add the apparelProductPopulator to the productConverter -->
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="productConverter"/>
+		<property name="add" ref="apparelProductPopulator"/>
+	</bean>
+
+	<!-- accelerator Image Format Mappings -->
+	<alias name="acceleratorImageFormatMapping" alias="imageFormatMapping"/>
+	<bean id="acceleratorImageFormatMapping" parent="defaultImageFormatMapping">
+		<property name="mapping">
+			<map>
+				<entry key="superZoom" value="1200Wx1200H"/>
+				<entry key="zoom" value="515Wx515H"/>
+				<entry key="store" value="365Wx246H"/>
+				<entry key="product" value="300Wx300H"/>
+				<entry key="thumbnail" value="96Wx96H"/>
+				<entry key="cartIcon" value="65Wx65H"/>
+				<entry key="styleSwatch" value="30Wx30H"/>
+			</map>
+		</property>
+	</bean>
+
+	<alias name="acceleratorProductPrimaryImagePopulator" alias="productPrimaryImagePopulator" />
+	<bean id="acceleratorProductPrimaryImagePopulator" parent="defaultProductPrimaryImagePopulator">
+		<property name="imageFormats">
+			<list>
+				<value>zoom</value>
+				<value>product</value>
+				<value>thumbnail</value>
+				<value>cartIcon</value>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="acceleratorProductGalleryImagesPopulator" alias="productGalleryImagesPopulator" />
+	<bean id="acceleratorProductGalleryImagesPopulator" parent="defaultProductGalleryImagesPopulator">
+		<property name="imageFormats">
+			<list>
+				<value>superZoom</value>
+				<value>zoom</value>
+				<value>product</value>
+				<value>thumbnail</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="customerEmailContext" class="de.hybris.NagAcc.facades.process.email.context.CustomerEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="customerConverter" ref="customerConverter"/>
+	</bean>
+
+	<bean id="forgottenPasswordEmailContext" class="de.hybris.NagAcc.facades.process.email.context.ForgottenPasswordEmailContext" parent="customerEmailContext" scope="prototype" >
+		<property name="customerConverter" ref="customerConverter"/>
+	</bean>
+
+	<bean id="orderNotificationEmailContext" class="de.hybris.NagAcc.facades.process.email.context.OrderNotificationEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+	</bean>
+
+	<bean id="quoteNotificationEmailContext" class="de.hybris.NagAcc.facades.process.email.context.QuoteNotificationEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="quoteService" ref="quoteService"/>
+		<property name="quoteConverter" ref="quoteConverter"/>
+	</bean>
+	
+	<bean id="deliverySentEmailContext" class="de.hybris.NagAcc.facades.process.email.context.DeliverySentEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="consignmentConverter" ref="consignmentConverter"/>
+	</bean>
+	
+	<bean id="readyForPickupEmailContext" class="de.hybris.NagAcc.facades.process.email.context.ReadyForPickupEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="consignmentConverter" ref="consignmentConverter"/>
+	</bean>
+	
+	<bean id="orderCancelledEmailContext" class="de.hybris.NagAcc.facades.process.email.context.OrderCancelledEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+	</bean>
+	
+	<bean id="orderRefundEmailContext" class="de.hybris.NagAcc.facades.process.email.context.OrderRefundEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+	</bean>
+	<bean id="consignmentCollectionReminderEmailContext" class="de.hybris.NagAcc.facades.process.email.context.ConsignmentCollectionReminderEmailContext" parent="abstractEmailContext" scope="prototype">
+        <property name="consignmentConverter" ref="consignmentConverter"/>
+        <property name="formatFactory" ref="formatFactory"/>
+        <property name="customerServiceUncollectedConsignmentStrategy" ref="customerServiceUncollectedConsignmentStrategy" />
+        <property name="orderConverter" ref="orderConverter"/>
+    </bean>
+
+	<bean id="orderPartiallyModifiedEmailContext" class="de.hybris.NagAcc.facades.process.email.context.OrderPartiallyModifiedEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="orderConverter" ref="orderConverter"/>
+		<property name="orderEntryConverter" ref="orderEntryConverter"/>
+		<property name="priceDataFactory" ref="priceDataFactory"/>		
+	</bean>
+
+	<bean id="orderPartiallyCanceledEmailContext" class="de.hybris.NagAcc.facades.process.email.context.OrderPartiallyCanceledEmailContext" parent="orderPartiallyModifiedEmailContext" scope="prototype" >
+	</bean>
+
+	<bean id="orderPartiallyRefundedEmailContext" class="de.hybris.NagAcc.facades.process.email.context.OrderPartiallyRefundedEmailContext" parent="orderPartiallyModifiedEmailContext" scope="prototype" >
+	</bean>
+
+	<bean id="notPickedUpConsignmentCanceledEmailContext" class="de.hybris.NagAcc.facades.process.email.context.NotPickedUpConsignmentCanceledEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="consignmentConverter" ref="consignmentConverter"/>
+		<property name="priceDataFactory" ref="priceDataFactory"/>
+	</bean>
+
+	<alias name="yacceleratorSearchPagePointOfServiceDistancePopulator" alias="searchPagePointOfServiceDistancePopulator" />
+	<bean id="yacceleratorSearchPagePointOfServiceDistancePopulator" class="de.hybris.NagAcc.facades.storefinder.populators.SearchPagePointOfServiceDistancePopulator" >
+		<property name="pointOfServiceDistanceConverter" ref="pointOfServiceDistanceConverter"/>
+	</bean>
+
+	<bean id="genderData" class="de.hybris.NagAcc.facades.product.data.GenderData" scope="prototype"/>
+
+	<!--Converter for DesignerModel -->
+	<alias name="defaultDesignerConverter" alias="designerConverter"/>
+	<bean id="defaultDesignerConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.NagAcc.facades.designer.data.DesignerData"/>
+		<property name="populators">
+			<list>
+				<ref bean="designerPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- Populator for DesignerModel to DesignerData -->
+	<alias name="defaultDesignerPopulator" alias="designerPopulator"/>
+	<bean id="defaultDesignerPopulator"
+		  class="de.hybris.NagAcc.facades.populators.DesignerPopulator">
+	</bean>
+
+	<!-- Bean for designer facade-->
+	<alias name="defaultDesignerFacade" alias="designerFacade"/>
+	<bean id="defaultDesignerFacade" class="de.hybris.NagAcc.facades.designer.impl.DefaultDesignerFacade">
+		<property name="designerConverter" ref="designerConverter"/>
+		<property name="designerService" ref="designerService"/>
+	</bean>
+
+	<!--Overriding CustomerFacade-->
+	<alias name="defaultCustomCustomerFacade" alias="customerFacade"/>
+	<bean id="defaultCustomCustomerFacade" class="de.hybris.NagAcc.facades.customer.impl.DefaultCustomCustomerFacade"
+	parent="defaultCustomerFacade">
+		<property name="designerService" ref="designerService"/>
+	</bean>
+
+	<!-- Configured Populator for Product Option DESIGNER -->
+	<alias name="defaultCustomConfiguredPopulator" alias="productConfiguredPopulator"/>
+	<bean id="defaultCustomConfiguredPopulator" parent="defaultProductConfiguredPopulator">
+		<property name="populators">
+		  <map key-type="de.hybris.platform.commercefacades.product.ProductOption" merge="true">
+		     <entry key="DESIGNER" value-ref="productDesignerPopulator"/>
+	      </map>
+	    </property>
+	</bean>
+
+	<!-- Populator for populating product with its designer  -->
+
+	<alias name="defaultProductDesignerPopulator" alias="productDesignerPopulator"/>
+	<bean id="defaultProductDesignerPopulator"
+		  class="de.hybris.NagAcc.facades.product.converters.populator.ProductDesignerPopulator">
+		<property name="designerConverter" ref="designerConverter" />
+	</bean>
+
+	<!-- Adding populator to OrderEntryConverter which populates the product in the cart with its designer so that designer name can be shown on the cart page -->
+	<!--OrderEntry -> Product -> that product's data is being populated by designer data-->
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="orderEntryProductConverter"/>
+		<property name="add" ref="productDesignerPopulator"/>
+	</bean>
+
+	<!-- Populator for populating CustomerData with DesignerPreference-->
+	<alias name="defaultCustomerDesignerPopulator" alias="customerDesignerPopulator"/>
+	<bean id="defaultCustomerDesignerPopulator" class="de.hybris.NagAcc.facades.user.converters.populator.CustomerDesignerPopulator">
+		<property name="designerConverter" ref="designerConverter"/>
+	</bean>
+
+	<!-- Adding the above populator to the existing CustomerConverter defined in commercefacades-spring.xml -->
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="customerConverter"/>
+		<property name="add" ref="customerDesignerPopulator"/>
+	</bean>
+
+	<!-- Overriding the existing DefaultCheckoutFacade (Not created an interface) -->
+	<alias name="defaultCustomAcceleratorCheckoutFacade" alias="acceleratorCheckoutFacade"/>
+	<bean id="defaultCustomAcceleratorCheckoutFacade" class="de.hybris.NagAcc.facades.checkout.impl.CustomAcceleratorCheckoutFacade" parent="defaultAcceleratorCheckoutFacade">
+	</bean>
+
+	<!-- Overriding CartFacade -->
+	<alias name="defaultCustomCartFacade" alias="cartFacade"/>
+	<bean id="defaultCustomCartFacade" class="de.hybris.NagAcc.facades.cart.impl.DefaultCustomCartFacade" parent="defaultCartFacade">
+	</bean>
+
+
+
+
+</beans>

@@ -1,0 +1,20 @@
+# -----------------------------------------------------------------------
+# Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Product Localisations
+ 
+# Macros / Replacement Parameter definitions
+$productCatalog=apparelProductCatalog
+$productCatalogName=Apparel Product Catalog
+
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+# Language
+$lang=en
+
+# Update allProducts with localisations
+UPDATE Product;code[unique=true];$catalogVersion;name[lang=$lang];summary[lang=$lang];description[lang=$lang]
+;1200;;White T-shirt;Cotton new white t-shirt which everyone loves!; White T-shirt for all genders which is 100% cotton;
+;1201;;Banana Socks;Pink Coloured Cotton socks with Banana Prints;100% cotton Pink Coloured Cotton socks with Banana Prints;
+;1202;;Warm Sweater;Brown Coloured Sweater made from 100% wool;100% wool Brown Coloured Sweater to save you from the chilly winds;
+;1203;;Round Glasses;Stylish round glasses;Stylish round glasses to give you a cool look instantly!;

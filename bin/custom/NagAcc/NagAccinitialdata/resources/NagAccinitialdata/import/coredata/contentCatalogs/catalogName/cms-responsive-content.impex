@@ -1,0 +1,33 @@
+# -----------------------------------------------------------------------
+# Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+# -----------------------------------------------------------------------
+#
+# Import the CMS content for the site
+#
+#$contentCatalog=__CONTENT_CATALOG_NAME__
+#$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+
+# Import config properties into impex macros
+#UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+#$jarResourceCms=$config-jarResourceCmsValue
+
+$lang=en
+$contentCatalog=apparel-ukContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$picture = media(code,$contentCV)
+
+#% impex.enableCodeExecution(true);
+INSERT_UPDATE BannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink;
+                             ;;myBannerComp5;My Banner Component 5;myBannerComp 5;/;
+
+UPDATE BannerComponent;uid[unique=true];$contentCV[unique=true];$picture[lang=en];headline[lang=en];content[lang=en];
+"#% designerService = de.hybris.platform.core.Registry.getApplicationContext().getBean(""designerService"");"
+"#% designer=designerService.findDesignerByCode(""D100"");"
+;myBannerComp5;;
+"#% designer.getPhoto();";
+"#% designer.getName();";
+"#% designer.getDescription();";
+
+
+
+

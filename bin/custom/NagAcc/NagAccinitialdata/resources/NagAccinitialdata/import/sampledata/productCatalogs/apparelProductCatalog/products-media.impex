@@ -1,0 +1,66 @@
+# -----------------------------------------------------------------------
+# Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+# -----------------------------------------------------------------------
+# ImPex for Importing Product Media
+
+# Macros / Replacement Parameter definitions
+$productCatalog=apparelProductCatalog
+$productCatalogName=Apparel Product Catalog
+
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog]
+$media=@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator]
+$thumbnail=thumbnail(code, $catalogVersion)
+$picture=picture(code, $catalogVersion)
+$thumbnails=thumbnails(code, $catalogVersion)
+$detail=detail(code, $catalogVersion)
+$normal=normal(code, $catalogVersion)
+$others=others(code, $catalogVersion)
+$data_sheet=data_sheet(code, $catalogVersion)
+$medias=medias(code, $catalogVersion)
+$galleryImages=galleryImages(qualifier, $catalogVersion)
+$siteResource=jar:de.hybris.NagAcc.initialdata.setup.InitialDataSystemSetup&/NagAccinitialdata/import/sampledata/productCatalogs/$productCatalog
+
+# Create Media
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];$media;mime[default='image/jpeg'];$catalogVersion;folder(qualifier)
+;1200Wx1200H;/1200Wx1200H/tshirt1.jpg;$siteResource/images/1200Wx1200H/tshirt1.jpg;;;images;
+;515Wx515H;/515Wx515H/tshirt2.jpg;$siteResource/images/515Wx515H/tshirt2.jpg;;;images;
+;300Wx300H;/300Wx300H/tshirt3.jpg;$siteResource/images/300Wx300H/tshirt3.jpg;;;images;
+;96Wx96H;/96Wx96H/tshirt4.jpg;$siteResource/images/96Wx96H/tshirt4.jpg;;;images;
+;65Wx65H;/65Wx65H/tshirt4.jpg;$siteResource/images/65Wx65H/tshirt4.jpg;;;images;
+;30Wx30H;/30Wx30H/tshirt4.jpg;$siteResource/images/30Wx30H/tshirt4.jpg;;;images;
+;1200Wx1200H;/1200Wx1200H/socks1.jpg;$siteResource/images/1200Wx1200H/socks1.jpg;;;images;
+;515Wx515H;/515Wx515H/socks2.jpg;$siteResource/images/515Wx515H/socks2.jpg;;;images;
+;300Wx300H;/300Wx300H/socks3.jpg;$siteResource/images/300Wx300H/socks3.jpg;;;images;
+;96Wx96H;/96Wx96H/socks4.jpg;$siteResource/images/96Wx96H/socks4.jpg;;;images;
+;65Wx65H;/65Wx65H/socks4.jpg;$siteResource/images/65Wx65H/socks4.jpg;;;images;
+;30Wx30H;/30Wx30H/socks4.jpg;$siteResource/images/30Wx30H/socks4.jpg;;;images;
+;1200Wx1200H;/1200Wx1200H/sweater1.jpg;$siteResource/images/1200Wx1200H/sweater1.jpg;;;images;
+;515Wx515H;/515Wx515H/sweater2.jpg;$siteResource/images/515Wx515H/sweater2.jpg;;;images;
+;300Wx300H;/300Wx300H/sweater3.jpg;$siteResource/images/300Wx300H/sweater3.jpg;;;images;
+;96Wx96H;/96Wx96H/sweater4.jpg;$siteResource/images/96Wx96H/sweater4.jpg;;;images;
+;65Wx65H;/65Wx65H/sweater4.jpg;$siteResource/images/65Wx65H/sweater4.jpg;;;images;
+;30Wx30H;/30Wx30H/sweater4.jpg;$siteResource/images/30Wx30H/sweater4.jpg;;;images;
+;1200Wx1200H;/1200Wx1200H/glasses1.jpg;$siteResource/images/1200Wx1200H/glasses1.jpg;;;images;
+;515Wx515H;/515Wx515H/glasses2.jpg;$siteResource/images/515Wx515H/glasses2.jpg;;;images;
+;300Wx300H;/300Wx300H/glasses3.jpg;$siteResource/images/300Wx300H/glasses3.jpg;;;images;
+;96Wx96H;/96Wx96H/glasses4.jpg;$siteResource/images/96Wx96H/glasses4.jpg;;;images;
+;65Wx65H;/65Wx65H/glasses4.jpg;$siteResource/images/65Wx65H/glasses4.jpg;;;images;
+;30Wx30H;/30Wx30H/glasses4.jpg;$siteResource/images/30Wx30H/glasses4.jpg;;;images;
+
+
+# Create Media Containers
+INSERT_UPDATE MediaContainer;qualifier[unique=true];$medias;$catalogVersion
+;media_container_1;/515Wx515H/tshirt2.jpg,/300Wx300H/tshirt3.jpg,/96Wx96H/tshirt4.jpg,/65Wx65H/tshirt4.jpg,/30Wx30H/tshirt4.jpg;;
+;media_container_2;/515Wx515H/socks2.jpg,/300Wx300H/socks3.jpg,/96Wx96H/socks4.jpg,/65Wx65H/socks4.jpg,/30Wx30H/socks4.jpg;;
+;media_container_3;/515Wx515H/sweater2.jpg,/300Wx300H/sweater3.jpg,/96Wx96H/sweater4.jpg,/65Wx65H/sweater4.jpg,/30Wx30H/sweater4.jpg;;
+;media_container_4;/515Wx515H/glasses2.jpg,/300Wx300H/glasses3.jpg,/96Wx96H/glasses4.jpg,/65Wx65H/glasses4.jpg,/30Wx30H/glasses4.jpg;;
+
+
+
+# Update Products with Media and Media Containers
+UPDATE Product;code[unique=true];$picture;$thumbnail;$detail;$others;$normal;$thumbnails;$galleryImages;$catalogVersion
+;1200;/300Wx300H/tshirt3.jpg;/96Wx96H/tshirt4.jpg;/1200Wx1200H/tshirt1.jpg;/1200Wx1200H/tshirt1.jpg,/515Wx515H/tshirt2.jpg,/300Wx300H/tshirt3.jpg,/96Wx96H/tshirt4.jpg,/65Wx65H/tshirt4.jpg,/30Wx30H/tshirt4.jpg;/300Wx300H/tshirt3.jpg;/96Wx96H/tshirt4.jpg;media_container_1;
+;1201;/300Wx300H/socks3.jpg;/96Wx96H/socks4.jpg;/1200Wx1200H/socks1.jpg;/1200Wx1200H/socks1.jpg,/515Wx515H/socks2.jpg,/300Wx300H/socks3.jpg,/96Wx96H/socks4.jpg,/65Wx65H/socks4.jpg,/30Wx30H/socks4.jpg;/300Wx300H/socks3.jpg;/96Wx96H/socks4.jpg;media_container_2;
+;1202;/300Wx300H/sweater3.jpg;/96Wx96H/sweater4.jpg;/1200Wx1200H/sweater1.jpg;/1200Wx1200H/sweater1.jpg,/515Wx515H/sweater2.jpg,/300Wx300H/sweater3.jpg,/96Wx96H/sweater4.jpg,/65Wx65H/sweater4.jpg,/30Wx30H/sweater4.jpg;/300Wx300H/sweater3.jpg;/96Wx96H/sweater4.jpg;media_container_3;
+;1203;/300Wx300H/glasses3.jpg;/96Wx96H/glasses4.jpg;/1200Wx1200H/glasses1.jpg;/1200Wx1200H/glasses1.jpg,/515Wx515H/glasses2.jpg,/300Wx300H/glasses3.jpg,/96Wx96H/glasses4.jpg,/65Wx65H/glasses4.jpg,/30Wx30H/glasses4.jpg;/300Wx300H/glasses3.jpg;/96Wx96H/glasses4.jpg;media_container_4;
+

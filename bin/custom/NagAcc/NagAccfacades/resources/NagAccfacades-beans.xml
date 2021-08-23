@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<bean class="de.hybris.platform.commercefacades.product.data.ProductData">
+		<property name="genders" type="java.util.List&lt;de.hybris.NagAcc.facades.product.data.GenderData>"/>
+		<property name="designer" type="de.hybris.NagAcc.facades.designer.data.DesignerData"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.user.data.CustomerData">
+		<property name="designerPreference" type="de.hybris.NagAcc.facades.designer.data.DesignerData"/>
+	</bean>
+
+	<bean class="de.hybris.NagAcc.facades.product.data.GenderData">
+		<property name="code" type="String"/>
+		<property name="name" type="String"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.user.data.RegisterData">
+		<property name="myPreferredDesigner" type="java.lang.String"/>
+	</bean>
+	
+	<bean class="de.hybris.NagAcc.facades.designer.data.DesignerData">
+		<property name="code" type="String"/>
+		<property name="name" type="String"/>
+	</bean>
+
+	<enum class="de.hybris.platform.commercefacades.product.ProductOption">
+		<value>DESIGNER</value>
+	</enum>
+</beans>
