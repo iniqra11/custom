@@ -12,7 +12,7 @@
 	<!-- Creating new action for changing customer's preferred designer if it is different from the order's designer -->
 	<action id="checkDesigner" bean="checkDesignerAction">
 		<transition name="OK" to="checkAuthorizeOrderPayment"/>
-		<transition name="NOK" to="error"/>
+		<transition name="NOK" to="checkAuthorizeOrderPayment"/>
 	</action>
 
 	<action id="checkAuthorizeOrderPayment" bean="checkAuthorizeOrderPaymentAction">

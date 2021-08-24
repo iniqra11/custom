@@ -575,7 +575,14 @@
 
 	<!-- Bean registration for Overriding OrderService-->
 	<alias name="defaultCustomOrderService" alias="orderService"/>
-	<bean name="defaultCustomOrderService" class="de.hybris.NagAcc.core.service.impl.DefaultCustomOrderService" parent="defaultOrderService"></bean>
+	<bean name="defaultCustomOrderService" class="de.hybris.NagAcc.core.service.impl.DefaultCustomOrderService" parent="defaultOrderService">
+		<property name="submitOrderStrategies">
+			<list>
+				<!-- implementation that sends SubmitOrderEvent -->
+				<ref bean="eventPublishingSubmitOrderStrategy"/>
+			</list>
+		</property>
+	</bean>
 
 	<!-- Bean registration for UpdateNumberOfOrdersCronjob-->
 	<bean name="updateNumberOfDesignerOrdersJob" class="de.hybris.NagAcc.core.job.UpdateNumberOfOrdersOfDesignerJobPerformable" parent="abstractJobPerformable">

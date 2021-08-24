@@ -96,7 +96,7 @@
 
 	<!-- Action for setting Customer's preferred designer as the designer of the order, in case they are different -->
 	<bean id="checkDesignerAction" class="de.hybris.NagAcc.fulfilmentprocess.actions.order.CheckDesignerAction" parent="abstractAction">
-		<property name="userService" ref="userService" />
+
 	</bean>
 
 
