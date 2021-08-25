@@ -19,16 +19,16 @@ import java.util.Locale;
 
 public class CheckDesignerAction extends AbstractSimpleDecisionAction<OrderProcessModel> {
 
-    private static final String ANONYMOUS_USER = "anonymous";
+
     @Override
     public Transition executeAction(OrderProcessModel orderProcessModel) throws RetryLaterException, Exception {
         UserModel userModel = orderProcessModel.getOrder().getUser();
-        String userUid = userModel.getUid();
+       // String userUid = userModel.getUid();
         if (userModel instanceof CustomerModel)
         {
             CustomerModel customerModel = (CustomerModel) orderProcessModel.getOrder().getUser();
-            boolean isAnonymous = userUid.equals(ANONYMOUS_USER);
-            if(!isAnonymous){
+            boolean isGuest = customerModel.getType().equals(CustomerType.GUEST);
+            if(!isGuest){
                 final OrderModel orderModel = orderProcessModel.getOrder();
                 DesignerModel orderDesigner = orderModel.getDesigner();
                 if (orderDesigner != null) // if designer is set i.e when all products in the order have same designer
