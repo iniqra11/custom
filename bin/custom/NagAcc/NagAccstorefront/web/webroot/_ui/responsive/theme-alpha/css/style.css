@@ -22099,15 +22099,3 @@ hidden-sm .cpq-overview-messages {
   border-bottom: 2px dotted #e08210;
   background-color: #eee;
 }
-#bannerImg {
-  width: 1400px;
-  height: 600px;
-}
-#bannerContent {
-  font-weight: bold;
-  padding: 20px;
-  margin-left: 30px;
-  color: #e08210;
-  font-size: 20px;
-  font-family: Tahoma,Garamond,Arial;
-}
