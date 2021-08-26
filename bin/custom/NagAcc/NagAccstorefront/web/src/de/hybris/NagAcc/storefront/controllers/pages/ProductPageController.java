@@ -437,13 +437,6 @@ public class ProductPageController extends AbstractPageController
 
 			}
 
-			// if this works then populate customerData with designerPreference
-			// 1) designer -> customerdata -> facades_beans.xml
-			// 2) create populator -> UserModel -> CustomerData & populates designerdata in customerdata
-			// 3) add this populator to customerConverter by using modifyPopulatorList
-			// 4) make two registration in facades_spring.xml (2,3 points)
-			// 5) add this in controller
-			//6 ) add in jsp
 
 		}
 

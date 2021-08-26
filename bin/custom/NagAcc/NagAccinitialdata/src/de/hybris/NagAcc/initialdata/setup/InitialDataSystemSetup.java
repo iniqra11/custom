@@ -97,14 +97,27 @@ public class InitialDataSystemSetup extends AbstractSystemSetup
 		/*
 		 * Add import data for each site you have configured
 		 */
-		//importImpexFile(context, "/NagAccinitialdata/import/sampledata/productCatalogs/apparelProductCatalog/products.impex");
-		//importImpexFile(context, "/NagAccinitialdata/import/sampledata/productCatalogs/apparelProductCatalog/products_en.impex");
-		//importImpexFile(context, "/NagAccinitialdata/import/sampledata/productCatalogs/apparelProductCatalog/products-media.impex");
-		//importImpexFile(context, "/NagAccinitialdata/import/sampledata/productCatalogs/apparelProductCatalog/products-stocklevels.impex");
-		//importImpexFile(context, "/NagAccinitialdata/import/sampledata/productCatalogs/apparelProductCatalog/products-prices.impex");
-		//importImpexFile(context, "/NagAccinitialdata/import/coredata/stores/storeName/site_en.impex");
-		//importImpexFile(context, "/NagAccinitialdata/import/coredata/stores/storeName/store_en.impex");
-		importImpexFile(context, "/NagAccinitialdata/import/coredata/contentCatalogs/catalogName/cms-responsive-content.impex");
+		importImpexFile(context, "/NagAccinitialdata/import/sampledata/productCatalogs/apparelProductCatalog/products.impex");
+		importImpexFile(context, "/NagAccinitialdata/import/sampledata/productCatalogs/apparelProductCatalog/products_en.impex");
+		importImpexFile(context, "/NagAccinitialdata/import/sampledata/productCatalogs/apparelProductCatalog/products-media.impex");
+		importImpexFile(context, "/NagAccinitialdata/import/sampledata/productCatalogs/apparelProductCatalog/products-stocklevels.impex");
+		importImpexFile(context, "/NagAccinitialdata/import/sampledata/productCatalogs/apparelProductCatalog/products-prices.impex");
+		importImpexFile(context, "/NagAccinitialdata/import/coredata/stores/nagarro/site_en.impex");
+		importImpexFile(context, "/NagAccinitialdata/import/coredata/stores/nagarro/store_en.impex");
+
+
+		importImpexFile(context, "/NagAccinitialdata/import/sampledata/productCatalogs/apparelProductCatalog/designer-media.impex");
+		importImpexFile(context, "/NagAccinitialdata/import/sampledata/productCatalogs/apparelProductCatalog/designer.impex");
+		importImpexFile(context, "/NagAccinitialdata/import/sampledata/productCatalogs/apparelProductCatalog/designer_en.impex");
+		importImpexFile(context, "/NagAccinitialdata/import/sampledata/productCatalogs/apparelProductCatalog/product-designer.impex");
+		importImpexFile(context, "/NagAccinitialdata/import/coredata/contentCatalogs/apparelContentCatalog/cms-responsive-content.impex");
+		importImpexFile(context, "/NagAccinitialdata/import/coredata/contentCatalogs/apparelContentCatalog/cms-responsive-content_en.impex");
+		importImpexFile(context, "/NagAccinitialdata/import/coredata/contentCatalogs/apparelContentCatalog/cms-content.impex");
+		importImpexFile(context, "/NagAccinitialdata/import/coredata/contentCatalogs/apparelContentCatalog/cms-content_en.impex");
+
+		importImpexFile(context, "/NagAccinitialdata/import/coredata/stores/nagarro/solr.impex");
+		importImpexFile(context, "/NagAccinitialdata/import/coredata/stores/nagarro/solr_en.impex");
+
 
 
 

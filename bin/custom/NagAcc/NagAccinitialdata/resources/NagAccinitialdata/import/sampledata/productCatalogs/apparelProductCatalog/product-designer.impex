@@ -1,0 +1,11 @@
+
+# Associate products with designer
+$productCatalog=apparelProductCatalog
+$productCatalogName=Apparel Product Catalog
+
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+UPDATE Product;code[unique=true];$catalogVersion;designer(uid);
+              ;1200;;D100;
+              ;1201;;D200;
+              ;1202;;D300;
+              ;1203;;D400;

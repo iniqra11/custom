@@ -1,0 +1,63 @@
+$contentCatalog=apparel-ukContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$picture = media(code,$contentCV)
+
+#% impex.enableCodeExecution(true);
+
+UPDATE BannerComponent;uid[unique=true];$contentCV[unique=true];$picture[lang=en];headline[lang=en];content[lang=en];
+"#% beforeEach:
+
+de.hybris.NagAcc.core.service.DesignerService designerService = de.hybris.platform.core.Registry.getApplicationContext().getBean(""designerService"");
+try
+{
+    de.hybris.NagAcc.core.model.DesignerModel designerModel = designerService.findDesignerByCode(""D100"");
+    line.put(new Integer(3), designerModel.getPhoto().getCode());
+    line.put(new Integer(4), designerModel.getName());
+    line.put(new Integer(5), designerModel.getDescription());
+
+}
+catch (Exception ex) {}
+";
+;ourDesigner1;
+"#% beforeEach:
+
+de.hybris.NagAcc.core.service.DesignerService designerService = de.hybris.platform.core.Registry.getApplicationContext().getBean(""designerService"");
+try
+{
+    de.hybris.NagAcc.core.model.DesignerModel designerModel = designerService.findDesignerByCode(""D200"");
+    line.put(new Integer(3), designerModel.getPhoto().getCode());
+    line.put(new Integer(4), designerModel.getName());
+    line.put(new Integer(5), designerModel.getDescription());
+
+}
+catch (Exception ex) {}
+";
+;ourDesigner2;
+"#% beforeEach:
+
+de.hybris.NagAcc.core.service.DesignerService designerService = de.hybris.platform.core.Registry.getApplicationContext().getBean(""designerService"");
+try
+{
+    de.hybris.NagAcc.core.model.DesignerModel designerModel = designerService.findDesignerByCode(""D300"");
+    line.put(new Integer(3), designerModel.getPhoto().getCode());
+    line.put(new Integer(4), designerModel.getName());
+    line.put(new Integer(5), designerModel.getDescription());
+
+}
+catch (Exception ex) {}
+";
+;ourDesigner3;
+"#% beforeEach:
+
+de.hybris.NagAcc.core.service.DesignerService designerService = de.hybris.platform.core.Registry.getApplicationContext().getBean(""designerService"");
+try
+{
+    de.hybris.NagAcc.core.model.DesignerModel designerModel = designerService.findDesignerByCode(""D400"");
+    line.put(new Integer(3), designerModel.getPhoto().getCode());
+    line.put(new Integer(4), designerModel.getName());
+    line.put(new Integer(5), designerModel.getDescription());
+
+}
+catch (Exception ex) {}
+";
+;ourDesigner4;

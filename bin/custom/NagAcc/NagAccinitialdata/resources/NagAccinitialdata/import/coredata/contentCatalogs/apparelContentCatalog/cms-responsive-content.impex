@@ -11,22 +11,23 @@
 #UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
 #$jarResourceCms=$config-jarResourceCmsValue
 
-$lang=en
 $contentCatalog=apparel-ukContentCatalog
 $contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
 $picture = media(code,$contentCV)
 
-#% impex.enableCodeExecution(true);
-INSERT_UPDATE BannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink;
-                             ;;myBannerComp5;My Banner Component 5;myBannerComp 5;/;
+INSERT_UPDATE BannerComponent;uid[unique=true];$contentCV[unique=true];
+;ourDesigner1;
+;ourDesigner2;
+;ourDesigner3;
+;ourDesigner4;
 
-UPDATE BannerComponent;uid[unique=true];$contentCV[unique=true];$picture[lang=en];headline[lang=en];content[lang=en];
-"#% designerService = de.hybris.platform.core.Registry.getApplicationContext().getBean(""designerService"");"
-"#% designer=designerService.findDesignerByCode(""D100"");"
-;myBannerComp5;;
-"#% designer.getPhoto();";
-"#% designer.getName();";
-"#% designer.getDescription();";
+INSERT_UPDATE RotatingImagesComponent;$contentCV[unique=true];uid[unique=true];banners(uid,$contentCV);&componentRef
+                                     ;;ourDesigners;ourDesigner1,ourDesigner2,ourDesigner3,ourDesigner4;ourDesigners;
+
+
+
+
+
 
 
 

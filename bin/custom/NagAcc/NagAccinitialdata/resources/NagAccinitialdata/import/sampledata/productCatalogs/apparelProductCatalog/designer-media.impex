@@ -1,0 +1,11 @@
+# Creating Media for Designer
+$contentCatalog=apparel-ukContentCatalog
+$productCatalog=apparelProductCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$siteResource=jar:de.hybris.NagAcc.initialdata.setup.InitialDataSystemSetup&/NagAccinitialdata/import/sampledata/productCatalogs/$productCatalog
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];realfilename;@media [translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator]; mime[default='image/jpeg'];folder(qualifier)[default='images']
+                   ;;designer3.jpg;designer3.jpg;$siteResource/images/designers/designer3.jpg;;;
+                   ;;designer2.jpg;designer2.jpg;$siteResource/images/designers/designer2.jpg;;;
+                   ;;designer1.jpg;designer1.jpg;$siteResource/images/designers/designer1.jpg;;;
+                   ;;designer4.jpg;designer4.jpg;$siteResource/images/designers/designer4.jpg;;;

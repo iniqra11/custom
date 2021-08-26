@@ -1,0 +1,8 @@
+# Adding localized properties to Designer
+$lang=en
+
+UPDATE Designer;uid[unique=true];name[lang=$lang];description[lang=$lang];
+               ;D100;Sam Jackson;A well known fashion designer, particularly known for designing jackets;
+               ;D200;Lisa Jewel;A well known fashion designer, particularly known for designing glasses;
+               ;D300;Reema Singh;A well known fashion designer, particularly known for designing blazers;
+               ;D400;Jan Kapoor;A well known fashion designer, particularly known for designing bags;

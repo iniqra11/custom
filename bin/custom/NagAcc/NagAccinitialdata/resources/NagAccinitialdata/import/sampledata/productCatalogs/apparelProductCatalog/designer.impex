@@ -1,0 +1,11 @@
+
+# Creating designer for products
+$contentCatalog=apparel-ukContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$photo=photo(code,$contentCV)
+
+INSERT_UPDATE Designer;uid[unique=true]; numberOfOrders;$photo;
+                      ;D100;3;designer1.jpg;
+                      ;D200;5;designer2.jpg;
+                      ;D300;10;designer3.jpg;
+                      ;D400;4;designer4.jpg
