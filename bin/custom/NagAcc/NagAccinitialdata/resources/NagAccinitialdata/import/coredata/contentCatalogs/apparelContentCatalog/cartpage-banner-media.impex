@@ -1,0 +1,8 @@
+$contentCatalog=apparel-ukContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$picture = media(code,$contentCV)
+$siteResource=jar:de.hybris.NagAcc.initialdata.setup.InitialDataSystemSetup&/NagAccinitialdata/import/coredata/contentCatalogs/apparelContentCatalog
+
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];realfilename;@media [translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator]; mime[default='image/jpeg'];folder(qualifier)[default='images']
+                   ;;sameDesignerBanner.jpg;sameDesignerBanner.jpg;$siteResource/images/banners/cartpage/sameDesignerBanner.jpg;;;
