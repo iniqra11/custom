@@ -2,6 +2,10 @@ $contentCatalog=apparel-ukContentCatalog
 $contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
 $picture = media(code,$contentCV)
 
+$siteResource=jar:de.hybris.NagAcc.initialdata.setup.InitialDataSystemSetup&/NagAccinitialdata/import/coredata/contentCatalogs/apparelContentCatalog
+$lang=en
+
+
 #% impex.enableCodeExecution(true);
 
 UPDATE BannerComponent;uid[unique=true];$contentCV[unique=true];$picture[lang=en];headline[lang=en];content[lang=en];
@@ -61,3 +65,8 @@ try
 catch (Exception ex) {}
 ";
 ;ourDesigner4;
+
+# For question 16
+
+UPDATE BannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;$picture[lang=en];headline[lang=en];content[lang=en];
+                             ;;sameDesignerBannerComp;Same Designer Banner;sameDesignerBannerComp;sameDesignerBanner.jpg;All products from the same designer!;Your cart has all products from the same designer;

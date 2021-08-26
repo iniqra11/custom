@@ -11,3 +11,7 @@ $contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCata
 UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name[lang=en];
 ;;CS1;Designer Banner Slot;
 
+UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name[lang=en];
+;;CS2;Same Designer Banner Content Slot;
+
+

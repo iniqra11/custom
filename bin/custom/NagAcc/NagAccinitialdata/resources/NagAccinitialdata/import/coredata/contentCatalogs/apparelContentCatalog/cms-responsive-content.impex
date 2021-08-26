@@ -14,6 +14,8 @@
 $contentCatalog=apparel-ukContentCatalog
 $contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
 $picture = media(code,$contentCV)
+$siteResource=jar:de.hybris.NagAcc.initialdata.setup.InitialDataSystemSetup&/NagAccinitialdata/import/coredata/contentCatalogs/apparelContentCatalog
+
 
 INSERT_UPDATE BannerComponent;uid[unique=true];$contentCV[unique=true];
 ;ourDesigner1;
@@ -23,6 +25,12 @@ INSERT_UPDATE BannerComponent;uid[unique=true];$contentCV[unique=true];
 
 INSERT_UPDATE RotatingImagesComponent;$contentCV[unique=true];uid[unique=true];banners(uid,$contentCV);&componentRef
                                      ;;ourDesigners;ourDesigner1,ourDesigner2,ourDesigner3,ourDesigner4;ourDesigners;
+
+
+#For Question 16
+
+INSERT_UPDATE BannerComponent;$contentCV[unique=true];uid[unique=true];&componentRef;urlLink;
+                             ;;sameDesignerBannerComp;sameDesignerBannerComp;/;
 
 
 
