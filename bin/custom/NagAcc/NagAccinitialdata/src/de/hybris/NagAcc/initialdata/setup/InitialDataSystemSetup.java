@@ -114,6 +114,8 @@ public class InitialDataSystemSetup extends AbstractSystemSetup
 		importImpexFile(context, "/NagAccinitialdata/import/coredata/contentCatalogs/apparelContentCatalog/cms-responsive-content_en.impex");
 		importImpexFile(context, "/NagAccinitialdata/import/coredata/contentCatalogs/apparelContentCatalog/cms-content.impex");
 		importImpexFile(context, "/NagAccinitialdata/import/coredata/contentCatalogs/apparelContentCatalog/cms-content_en.impex");
+		importImpexFile(context, "/NagAccinitialdata/import/coredata/contentCatalogs/apparelContentCatalog/cartpage-banner-media.impex");
+
 
 		importImpexFile(context, "/NagAccinitialdata/import/coredata/stores/nagarro/solr.impex");
 		importImpexFile(context, "/NagAccinitialdata/import/coredata/stores/nagarro/solr_en.impex");
