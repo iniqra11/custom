@@ -78,7 +78,6 @@ public class DesignerNameValueProvider extends AbstractPropertyFieldValueProvide
         {
             locale = commonI18NService.getLocaleForLanguage(language);
         }
-        // get  names by language
         i18nService.setLocalizationFallbackEnabled(false);
         if (locale == null)
            designerName = product.getDesigner().getName();
@@ -92,7 +91,7 @@ public class DesignerNameValueProvider extends AbstractPropertyFieldValueProvide
     }
 
     private void addFieldValues(List<FieldValue> fieldValues, IndexedProperty indexedProperty, LanguageModel language, String designerName) {
-        // generate all Solr fields based on different qualifiers
+
         final Collection<String> fieldNames = fieldNameProvider.getFieldNames(indexedProperty, language == null ? null : language.getIsocode());
         for (final String fieldName : fieldNames)
         {

@@ -13,8 +13,10 @@ public class CustomRegistrationValidator extends RegistrationValidator {
     @Override
     public void validate(Object object, Errors errors) {
         super.validate(object, errors);
-        CustomRegisterForm customRegisterForm = (CustomRegisterForm) object;
-        validateDesignerName(errors, customRegisterForm.getMyPreferredDesigner());
+        if (object instanceof CustomRegisterForm) {
+            CustomRegisterForm customRegisterForm = (CustomRegisterForm) object;
+            validateDesignerName(errors, customRegisterForm.getMyPreferredDesigner());
+        }
     }
 
     private void validateDesignerName(Errors errors, String myPreferredDesigner) {
