@@ -78,13 +78,12 @@ public class DesignerNameValueProvider extends AbstractPropertyFieldValueProvide
         {
             locale = commonI18NService.getLocaleForLanguage(language);
         }
-        i18nService.setLocalizationFallbackEnabled(false);
+
         if (locale == null)
            designerName = product.getDesigner().getName();
         else
             designerName = product.getDesigner().getName(locale);
 
-        i18nService.setLocalizationFallbackEnabled(true);
         addFieldValues(fieldValues, indexedProperty, language, designerName);
         }
         return fieldValues;
